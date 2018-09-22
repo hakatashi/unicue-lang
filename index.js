@@ -3,6 +3,7 @@ require('dotenv').config();
 const fs = require('fs');
 const {promisify} = require('util');
 const Twitter = require('twitter');
+const twitterText = require('twitter-text');
 
 (async () => {
 	if (process.argv.length <= 2) {
@@ -23,5 +24,23 @@ const Twitter = require('twitter');
 
 	// const tweets = await twitter.get('statuses/user_timeline', {screen_name: 'kcz146'});
 	const tweets = require('./temp.json');
-	console.log(tweets.length);
+
+	let isEntered = false;
+	tweets.sort((a, b) => {
+		if (a.created_at && b.created_at) {
+			const atA = new Date(a.created_at);
+			const atB = new Date(b.created_at);
+			return atA.getTime() - atB.getTime();
+		}
+
+		if (a.id_str && b.id_str) {
+			return a.id_str.localeCompare(b.id_str);
+		}
+
+		return 0;
+	});
+
+	for (const tweet of tweets) {
+		console.log(tweet.text, twitterText.parseTweet(tweet.text));
+	}
 })();
