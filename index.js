@@ -118,7 +118,7 @@ const pairs = [
 		process.stdin.on('end', () => {
 			resolve(Buffer.concat(chunks));
 		});
-	})
+	});
 	let stdinPointer = 0;
 
 	let pointer = 0;
@@ -201,6 +201,8 @@ const pairs = [
 			} else if (info.script === 'Medefaidrin') {
 				pointer += number;
 				continue;
+			} else if (info.script === 'Malayalam') {
+				stack.push(stack[stack.length - number - 1]);
 			}
 
 			pointer++;
@@ -214,8 +216,10 @@ const pairs = [
 
 				if (last(stack) === 0) {
 					pointer = closing + 1;
+					continue;
 				}
 			}
+			pointer++;
 			continue;
 		}
 
@@ -228,6 +232,7 @@ const pairs = [
 					pointer = opening + 1;
 				}
 			}
+			pointer++;
 			continue;
 		}
 
