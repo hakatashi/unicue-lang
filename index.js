@@ -25,7 +25,6 @@ const twitterText = require('twitter-text');
 	// const tweets = await twitter.get('statuses/user_timeline', {screen_name: 'kcz146'});
 	const tweets = require('./temp.json');
 
-	let isEntered = false;
 	tweets.sort((a, b) => {
 		if (a.created_at && b.created_at) {
 			const atA = new Date(a.created_at);
@@ -40,7 +39,12 @@ const twitterText = require('twitter-text');
 		return 0;
 	});
 
-	for (const tweet of tweets) {
-		console.log(tweet.text, twitterText.parseTweet(tweet.text));
+	let isEntered = false;
+	let pointer = 0;
+
+	while (tweets.length > pointer) {
+		const tweet = tweets[pointer];
+		const {valid, weightedLength} = twitterText.parseTweet(tweet.text);
+		pointer++;
 	}
 })();
