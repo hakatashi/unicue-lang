@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/hakatashi/tweet-lang#readme",
   "dependencies": {
+    "codepoints": "^1.2.1",
     "dotenv": "^6.0.0",
-    "twitter": "^1.7.1",
-    "twitter-text": "^2.0.4"
+    "unicode-11.0.0": "^0.7.8"
   }
 }
