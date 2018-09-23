@@ -4,7 +4,7 @@
 
 ## 文字
 
-* **ソースコードに同じ文字が含まれてはいけない。**
+* **ソースコードに同じ文字が含まれてはいけない**
 * ソースコードは原則としてUTF-8として解釈される。
 * BOMがある場合、BOMに従いUTF-8・UTF-16LE・UTF-16BEとして解釈される。
 
@@ -34,6 +34,30 @@ numericプロパティの数値がそのまま引数になる。
 
 ## ループ
 
-UnicodeのGeneral_CategoryがPsもしくはPeの文字はループの始点と終点を構成する。
+UnicodeのGeneral_CategoryがPsもしくはPeの文字はループの始点と終点を構成する。これはUCDのBidi_Paired_Bracketによって定義される対応する括弧にジャンプする条件付き命令である。
 
-// TODO: 書く
+**Ps** (開き括弧) は、現在のスタックの一番上の値が0ならば対応する閉じ括弧にジャンプする。(POPしない)
+
+**Pe** (閉じ括弧) は、現在のスタックの一番上野値が0でないならば対応する開き括弧にジャンプする。(POPしない)
+
+## 汎用命令
+
+その他の文字はUnicodeのScriptプロパティの値によって命令が定義される。
+
+* `Modi`: SWAP
+* `Egyptian_Hieroglyphs`: POP
+* `Linear_A`: READ CHAR
+* `Linear_B`: WRITE CHAR
+* `Batak`: NEG
+* `Runic`: DUP
+* `Thai`: DUP3
+* `Hiragana`: ADD
+* `Katakana`: SUB
+* `Telugu`: MUL
+* `Geargian`: DIV
+* `Myanmar`: CMP
+* `Kannada`: GT
+* `Devanagari`: LT
+* `Cyrillic`: ANG
+* `Arabic`: OR
+* `Syriac`: NOT
